@@ -35,7 +35,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def setup(self, ctx):
         """
-        📬 Sets up a server for Modmail
+        Sets up a server for Modmail.
 
         You only need to run this command
         once after configuring Modmail.
@@ -99,8 +99,9 @@ class Modmail(commands.Cog):
 
         embed.add_field(
             name="Thanks for using our bot!",
-            value="If you like the bot, consider saying "
-            "thank you to `vNziie--`! ❤️",
+            value="If you like what you see, consider giving the "
+            "[repo a star](https://github.com/kyb3r/modmail) :star: and if you are "
+            "feeling extra generous, buy us coffee on [Patreon](https://patreon.com/kyber) :heart:!",
         )
 
         embed.set_footer(text=f'Type "{self.bot.prefix}help" for a complete list of commands.')
@@ -125,10 +126,10 @@ class Modmail(commands.Cog):
                 await self.bot.update_perms(PermissionLevel.OWNER, owner_id)
 
     @commands.group(aliases=["snippets"], invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def snippet(self, ctx, *, name: str.lower = None):
         """
-        📬 Create pre-defined messages for use in threads
+        Create pre-defined messages for use in threads.
 
         When `{prefix}snippet` is used by itself, this will retrieve
         a list of snippets that are currently set. `{prefix}snippet-name` will show what the
@@ -178,7 +179,7 @@ class Modmail(commands.Cog):
         await session.run()
 
     @snippet.command(name="raw")
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def snippet_raw(self, ctx, *, name: str.lower):
         """
         View the raw content of a snippet.
@@ -197,10 +198,10 @@ class Modmail(commands.Cog):
         return await ctx.send(embed=embed)
 
     @snippet.command(name="add")
-    @checks.has_permissions(PermissionLevel.ADMINOSTRATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def snippet_add(self, ctx, name: str.lower, *, value: commands.clean_content):
         """
-        📬 Adds a snippet
+        Add a snippet.
 
         Simply to add a snippet, do: ```
         {prefix}snippet add hey hello there :)
@@ -241,20 +242,20 @@ class Modmail(commands.Cog):
         embed = discord.Embed(
             title="Added snippet",
             color=self.bot.main_color,
-            description="Successfully created snippet! ✅",
+            description="Successfully created snippet.",
         )
         return await ctx.send(embed=embed)
 
     @snippet.command(name="remove", aliases=["del", "delete"])
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def snippet_remove(self, ctx, *, name: str.lower):
-        """📬 Remove a snippet"""
+        """Remove a snippet."""
 
         if name in self.bot.snippets:
             embed = discord.Embed(
                 title="Removed snippet",
                 color=self.bot.main_color,
-                description=f"Snippet `{name}` is now deleted! ✅",
+                description=f"Snippet `{name}` is now deleted.",
             )
             self.bot.snippets.pop(name)
             await self.bot.config.update()
@@ -263,10 +264,10 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @snippet.command(name="edit")
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def snippet_edit(self, ctx, name: str.lower, *, value):
         """
-        📬 Edits a snippet
+        Edit a snippet.
 
         To edit a multi-word snippet name, use quotes: ```
         {prefix}snippet edit "two word" this is a new two word snippet.
@@ -286,11 +287,11 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(usage="<category> [options]")
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def move(self, ctx, *, arguments):
         """
-        📬 Move a thread to another category.
+        Move a thread to another category.
 
         `category` may be a category ID, mention, or name.
         `options` is a string which takes in arguments on how to perform the move. Ex: "silently"
@@ -360,9 +361,9 @@ class Modmail(commands.Cog):
         )
 
         if after.arg and not silent:
-            embed.add_field(name="💬 Message", value=after.arg)
+            embed.add_field(name="Message", value=after.arg)
 
-        embed.set_footer(text=f"Use {self.bot.prefix}close cancel - To cancel close")
+        embed.set_footer(text="Closing will be cancelled if a thread message is sent.")
         embed.timestamp = after.dt
 
         await ctx.send(embed=embed)
@@ -372,7 +373,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def close(self, ctx, *, after: UserFriendlyTime = None):
         """
-        📬 Close the current thread
+        Close the current thread.
 
         Close after a period of time:
         - `{prefix}close in 5 hours`
@@ -430,14 +431,14 @@ class Modmail(commands.Cog):
             mention = "@" + user_or_role.lstrip("@")
         return mention
 
-    @commands.command(aliases=["alert", "pingme"])
+    @commands.command(aliases=["alert"])
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def notify(
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        🔔 Notify a user or role when the next thread message received
+        Notify a user or role when the next thread message received.
 
         Once a thread message is received, `user_or_role` will be pinged once.
 
@@ -459,25 +460,25 @@ class Modmail(commands.Cog):
         if mention in mentions:
             embed = discord.Embed(
                 color=self.bot.error_color,
-                description=f"{mention} is already going to be mentioned! 🔔",
+                description=f"{mention} is already going to be mentioned.",
             )
         else:
             mentions.append(mention)
             await self.bot.config.update()
             embed = discord.Embed(
                 color=self.bot.main_color,
-                description=f"{mention} will be mentioned on the next message received! 🔔",
+                description=f"{mention} will be mentioned on the next message received.",
             )
         return await ctx.send(embed=embed)
 
-    @commands.command(aliases=["unalert", "unnotify"])
+    @commands.command(aliases=["unalert"])
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def unnotify(
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        🔕 Un-notify a user, role, or yourself from a thread.
+        Un-notify a user, role, or yourself from a thread.
 
         Leave `user_or_role` empty to un-notify yourself.
         `@here` and `@everyone` can be substituted with `here` and `everyone`.
@@ -514,7 +515,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        🔔 Notify a user, role, or yourself for every thread message received
+        Notify a user, role, or yourself for every thread message received.
 
         You will be pinged for every thread message received until you unsubscribe.
 
@@ -554,7 +555,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        🔕 Unsubscribe a user, role, or yourself from a thread
+        Unsubscribe a user, role, or yourself from a thread.
 
         Leave `user_or_role` empty to unsubscribe yourself.
         `@here` and `@everyone` can be substituted with `here` and `everyone`.
@@ -586,10 +587,10 @@ class Modmail(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def nsfw(self, ctx):
-        """🔞 Flags a Modmail thread as NSFW (not safe for work)"""
+        """Flags a Modmail thread as NSFW (not safe for work)."""
         await ctx.channel.edit(nsfw=True)
         sent_emoji, _ = await self.bot.retrieve_emoji()
         await self.bot.add_reaction(ctx.message, sent_emoji)
@@ -598,16 +599,16 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def sfw(self, ctx):
-        """👶 Flags a Modmail thread as SFW (safe for work)"""
+        """Flags a Modmail thread as SFW (safe for work)."""
         await ctx.channel.edit(nsfw=False)
         sent_emoji, _ = await self.bot.retrieve_emoji()
         await self.bot.add_reaction(ctx.message, sent_emoji)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def msglink(self, ctx, message_id: int):
-        """💬 Retrieves the link to a message in the current thread."""
+        """Retrieves the link to a message in the current thread."""
         try:
             message = await ctx.thread.recipient.fetch_message(message_id)
         except discord.NotFound:
@@ -619,10 +620,10 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def loglink(self, ctx):
-        """🔗 Retrieves the link to the current thread's logs."""
+        """Retrieves the link to the current thread's logs."""
         log_link = await self.bot.api.get_log_link(ctx.channel.id)
         await ctx.send(embed=discord.Embed(color=self.bot.main_color, description=log_link))
 
@@ -670,21 +671,21 @@ class Modmail(commands.Cog):
         return embeds
 
     @commands.command(cooldown_after_parsing=True)
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     @commands.cooldown(1, 600, BucketType.channel)
     async def title(self, ctx, *, name: str):
-        """📬 Sets title for a thread"""
+        """Sets title for a thread"""
         await ctx.thread.set_title(name)
         sent_emoji, _ = await self.bot.retrieve_emoji()
         await ctx.message.pin()
         await self.bot.add_reaction(ctx.message, sent_emoji)
 
     @commands.group(invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def logs(self, ctx, *, user: User = None):
         """
-        📁 Get previous Modmail thread logs of a member
+        Get previous Modmail thread logs of a member.
 
         Leave `user` blank when this command is used within a
         thread channel to show logs for the current recipient.
@@ -719,10 +720,10 @@ class Modmail(commands.Cog):
         await session.run()
 
     @logs.command(name="closed-by", aliases=["closeby"])
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def logs_closed_by(self, ctx, *, user: User = None):
         """
-        📁 Get all logs closed by the specified user.
+        Get all logs closed by the specified user.
 
         If no `user` is provided, the user will be the person who sent this command.
         `user` may be a user ID, mention, or name.
@@ -742,11 +743,11 @@ class Modmail(commands.Cog):
         session = EmbedPaginatorSession(ctx, *embeds)
         await session.run()
 
-    @logs.command(name="delete", aliases=["wipe", "del"])
+    @logs.command(name="delete", aliases=["wipe"])
     @checks.has_permissions(PermissionLevel.OWNER)
     async def logs_delete(self, ctx, key_or_link: str):
         """
-        📁 Wipe a log entry from the database.
+        Wipe a log entry from the database.
         """
         key = key_or_link.split("/")[-1]
 
@@ -768,10 +769,10 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @logs.command(name="responded")
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def logs_responded(self, ctx, *, user: User = None):
         """
-        📁 Get all logs where the specified user has responded at least once.
+        Get all logs where the specified user has responded at least once.
 
         If no `user` is provided, the user will be the person who sent this command.
         `user` may be a user ID, mention, or name.
@@ -793,10 +794,10 @@ class Modmail(commands.Cog):
         await session.run()
 
     @logs.command(name="search", aliases=["find"])
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def logs_search(self, ctx, limit: Optional[int] = None, *, query):
         """
-        📁 Retrieve all logs that contain messages with your query.
+        Retrieve all logs that contain messages with your query.
 
         Provide a `limit` to specify the maximum number of logs the bot should find.
         """
@@ -817,12 +818,12 @@ class Modmail(commands.Cog):
         session = EmbedPaginatorSession(ctx, *embeds)
         await session.run()
 
-    @commands.command(aliases=["r"])
+    @commands.command()
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def reply(self, ctx, *, msg: str = ""):
         """
-        💬 Reply to a Modmail thread
+        Reply to a Modmail thread.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -836,7 +837,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def freply(self, ctx, *, msg: str = ""):
         """
-        💬 Reply to a Modmail thread with variables.
+        Reply to a Modmail thread with variables.
 
         Works just like `{prefix}reply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
@@ -858,7 +859,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def fareply(self, ctx, *, msg: str = ""):
         """
-        💬 Anonymously reply to a Modmail thread with variables.
+        Anonymously reply to a Modmail thread with variables.
 
         Works just like `{prefix}areply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
@@ -875,12 +876,12 @@ class Modmail(commands.Cog):
         async with ctx.typing():
             await ctx.thread.reply(ctx.message, anonymous=True)
 
-    @commands.command(aliases=["anonreply", "anonymousreply", "ar"])
+    @commands.command(aliases=["anonreply", "anonymousreply"])
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def areply(self, ctx, *, msg: str = ""):
         """
-        💬 Reply to a thread anonymously
+        Reply to a thread anonymously.
 
         You can edit the anonymous user's name,
         avatar and tag using the config command.
@@ -897,7 +898,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def preply(self, ctx, *, msg: str = ""):
         """
-        💬 Reply to a Modmail thread with a plain message
+        Reply to a Modmail thread with a plain message.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -911,7 +912,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def pareply(self, ctx, *, msg: str = ""):
         """
-        💬 Reply to a Modmail thread with a plain message and anonymously
+        Reply to a Modmail thread with a plain message and anonymously.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -921,11 +922,11 @@ class Modmail(commands.Cog):
             await ctx.thread.reply(ctx.message, anonymous=True, plain=True)
 
     @commands.group(invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def note(self, ctx, *, msg: str = ""):
         """
-        📝 Take a note about the current thread
+        Take a note about the current thread.
 
         Useful for noting context.
         """
@@ -935,7 +936,7 @@ class Modmail(commands.Cog):
             await msg.pin()
 
     @note.command(name="persistent", aliases=["persist"])
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def note_persistent(self, ctx, *, msg: str = ""):
         """
@@ -954,7 +955,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def edit(self, ctx, message_id: Optional[int] = None, *, message: str):
         """
-        📝 Edit a message that was sent using the reply or anonreply command
+        Edit a message that was sent using the reply or anonreply command.
 
         If no `message_id` is provided,
         the last message sent by a staff will be edited.
@@ -978,9 +979,9 @@ class Modmail(commands.Cog):
         await self.bot.add_reaction(ctx.message, sent_emoji)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.REGULAR)
     async def selfcontact(self, ctx):
-        """📬 Creates a thread with yourself"""
+        """Creates a thread with yourself"""
         await ctx.invoke(self.contact, user=ctx.author)
 
     @commands.command(usage="<user> [category] [options]")
