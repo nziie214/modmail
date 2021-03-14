@@ -35,7 +35,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def setup(self, ctx):
         """
-        Sets up a server for Modmail.
+        📬 Sets up a server for Modmail
 
         You only need to run this command
         once after configuring Modmail.
