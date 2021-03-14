@@ -319,7 +319,7 @@ class Thread:
                 embed.add_field(name="Role(s)", value=role_names, inline=True)
             embed.set_footer(text=footer)
         else:
-            embed.set_footer(text=f"{footer} • (not in main server)")
+            embed.set_footer(text=f"{footer} • (Not in main server)")
 
         if log_count is not None:
             # embed.add_field(name="Past logs", value=f"{log_count}")
@@ -708,7 +708,7 @@ class Thread:
             logger.warning("Failed to edit message.", exc_info=True)
             raise
         embed = linked_message.embeds[0]
-        embed.add_field(name="**Edited, user's former message:**", value=embed.description)
+        embed.add_field(name="**💬 Edited, user's former message:**", value=embed.description)
         embed.description = content
         await asyncio.gather(
             self.bot.api.edit_message(message.id, content), linked_message.edit(embed=embed)
@@ -975,7 +975,7 @@ class Thread:
             embed.colour = self.bot.mod_color
             # Anonymous reply sent in thread channel
             if anonymous and isinstance(destination, discord.TextChannel):
-                embed.set_footer(text="Anonymous Reply")
+                embed.set_footer(text="Anonymous Reply - Staff")
             # Normal messages
             elif not anonymous:
                 mod_tag = self.bot.config["mod_tag"]
@@ -987,7 +987,7 @@ class Thread:
         elif note:
             embed.colour = self.bot.main_color
         else:
-            embed.set_footer(text=f"Message ID: {message.id}")
+            embed.set_footer(text="Reply")
             embed.colour = self.bot.recipient_color
 
         if (from_mod or note) and not thread_creation:
