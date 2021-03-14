@@ -316,7 +316,7 @@ class Thread:
             if member.nick:
                 embed.add_field(name="Nickname", value=member.nick, inline=True)
             if role_names:
-                embed.add_field(name="Roles", value=role_names, inline=True)
+                embed.add_field(name="Role(s)", value=role_names, inline=True)
             embed.set_footer(text=footer)
         else:
             embed.set_footer(text=f"{footer} • (not in main server)")
@@ -708,7 +708,7 @@ class Thread:
             logger.warning("Failed to edit message.", exc_info=True)
             raise
         embed = linked_message.embeds[0]
-        embed.add_field(name="**Edited, former message:**", value=embed.description)
+        embed.add_field(name="**Edited, user's former message:**", value=embed.description)
         embed.description = content
         await asyncio.gather(
             self.bot.api.edit_message(message.id, content), linked_message.edit(embed=embed)
@@ -1245,7 +1245,7 @@ class ThreadManager:
                 await confirm.remove_reaction(deny_emoji, self.bot.user)
                 await message.channel.send(
                     embed=discord.Embed(
-                        title="Cancelled", description="Timed out", color=self.bot.error_color
+                        title="❌ Cancelled", description="Timed out\nCreate a new thread anytime!", color=self.bot.error_color
                     )
                 )
                 del self.cache[recipient.id]
@@ -1258,7 +1258,7 @@ class ThreadManager:
                     await asyncio.sleep(0.2)
                     await confirm.remove_reaction(deny_emoji, self.bot.user)
                     await message.channel.send(
-                        embed=discord.Embed(title="Cancelled", color=self.bot.error_color)
+                        embed=discord.Embed(title="❌ Cancelled", color=self.bot.error_color)
                     )
                     del self.cache[recipient.id]
                     return thread
