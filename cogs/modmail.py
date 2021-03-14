@@ -35,7 +35,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def setup(self, ctx):
         """
-        Sets up a server for Modmail.
+        📬 Sets up a server for Modmail
 
         You only need to run this command
         once after configuring Modmail.
@@ -99,9 +99,8 @@ class Modmail(commands.Cog):
 
         embed.add_field(
             name="Thanks for using our bot!",
-            value="If you like what you see, consider giving the "
-            "[repo a star](https://github.com/kyb3r/modmail) :star: and if you are "
-            "feeling extra generous, buy us coffee on [Patreon](https://patreon.com/kyber) :heart:!",
+            value="If you like the bot, consider saying "
+            "thank you to `vNziie--`! ❤️",
         )
 
         embed.set_footer(text=f'Type "{self.bot.prefix}help" for a complete list of commands.')
@@ -126,10 +125,10 @@ class Modmail(commands.Cog):
                 await self.bot.update_perms(PermissionLevel.OWNER, owner_id)
 
     @commands.group(aliases=["snippets"], invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet(self, ctx, *, name: str.lower = None):
         """
-        Create pre-defined messages for use in threads.
+        📬 Create pre-defined messages for use in threads
 
         When `{prefix}snippet` is used by itself, this will retrieve
         a list of snippets that are currently set. `{prefix}snippet-name` will show what the
