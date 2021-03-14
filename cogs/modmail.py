@@ -360,9 +360,9 @@ class Modmail(commands.Cog):
         )
 
         if after.arg and not silent:
-            embed.add_field(name="Message", value=after.arg)
+            embed.add_field(name="💬 Message", value=after.arg)
 
-        embed.set_footer(text="Closing will be cancelled if a thread message is sent.")
+        embed.set_footer(text=f"Use {self.bot.prefix}close cancel - To cancel close")
         embed.timestamp = after.dt
 
         await ctx.send(embed=embed)
@@ -742,7 +742,7 @@ class Modmail(commands.Cog):
         session = EmbedPaginatorSession(ctx, *embeds)
         await session.run()
 
-    @logs.command(name="delete", aliases=["wipe"])
+    @logs.command(name="delete", aliases=["wipe", "del"])
     @checks.has_permissions(PermissionLevel.OWNER)
     async def logs_delete(self, ctx, key_or_link: str):
         """
@@ -836,7 +836,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def freply(self, ctx, *, msg: str = ""):
         """
-        Reply to a Modmail thread with variables.
+        💬 Reply to a Modmail thread with variables.
 
         Works just like `{prefix}reply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
@@ -858,7 +858,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def fareply(self, ctx, *, msg: str = ""):
         """
-        Anonymously reply to a Modmail thread with variables.
+        💬 Anonymously reply to a Modmail thread with variables.
 
         Works just like `{prefix}areply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
