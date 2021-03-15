@@ -835,7 +835,7 @@ class Thread:
                 self.channel.send(
                     embed=discord.Embed(
                         color=self.bot.error_color,
-                        description="Scheduled close has been cancelled.",
+                        description="Scheduled close has been cancelled! ❌",
                     )
                 )
             )
