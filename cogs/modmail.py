@@ -287,7 +287,7 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(usage="<category> [options]")
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def move(self, ctx, *, arguments):
         """
