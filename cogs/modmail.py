@@ -126,7 +126,7 @@ class Modmail(commands.Cog):
                 await self.bot.update_perms(PermissionLevel.OWNER, owner_id)
 
     @commands.group(aliases=["snippets"], invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet(self, ctx, *, name: str.lower = None):
         """
         Create pre-defined messages for use in threads.
@@ -179,7 +179,7 @@ class Modmail(commands.Cog):
         await session.run()
 
     @snippet.command(name="raw")
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_raw(self, ctx, *, name: str.lower):
         """
         View the raw content of a snippet.
@@ -198,7 +198,7 @@ class Modmail(commands.Cog):
         return await ctx.send(embed=embed)
 
     @snippet.command(name="add")
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_add(self, ctx, name: str.lower, *, value: commands.clean_content):
         """
         Add a snippet.
@@ -247,7 +247,7 @@ class Modmail(commands.Cog):
         return await ctx.send(embed=embed)
 
     @snippet.command(name="remove", aliases=["del", "delete"])
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_remove(self, ctx, *, name: str.lower):
         """Remove a snippet."""
 
@@ -264,7 +264,7 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @snippet.command(name="edit")
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_edit(self, ctx, name: str.lower, *, value):
         """
         Edit a snippet.
@@ -431,7 +431,7 @@ class Modmail(commands.Cog):
             mention = "@" + user_or_role.lstrip("@")
         return mention
 
-    @commands.command(aliases=["alert"])
+    @commands.command(aliases=["alert", "pingme"])
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def notify(
@@ -460,18 +460,18 @@ class Modmail(commands.Cog):
         if mention in mentions:
             embed = discord.Embed(
                 color=self.bot.error_color,
-                description=f"{mention} is already going to be mentioned.",
+                description=f"🔔 {mention} is already going to be mentioned!",
             )
         else:
             mentions.append(mention)
             await self.bot.config.update()
             embed = discord.Embed(
                 color=self.bot.main_color,
-                description=f"{mention} will be mentioned on the next message received.",
+                description=f"🔔 {mention} will be mentioned on the next message received.",
             )
         return await ctx.send(embed=embed)
 
-    @commands.command(aliases=["unalert"])
+    @commands.command(aliases=["unalert", "unpingme"])
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
     async def unnotify(
@@ -498,13 +498,13 @@ class Modmail(commands.Cog):
         if mention not in mentions:
             embed = discord.Embed(
                 color=self.bot.error_color,
-                description=f"{mention} does not have a pending notification.",
+                description=f"🔕 {mention} does not have a pending notification!",
             )
         else:
             mentions.remove(mention)
             await self.bot.config.update()
             embed = discord.Embed(
-                color=self.bot.main_color, description=f"{mention} will no longer be notified."
+                color=self.bot.main_color, description=f"🔕 {mention} will no longer be notified!"
             )
         return await ctx.send(embed=embed)
 
@@ -537,14 +537,14 @@ class Modmail(commands.Cog):
         if mention in mentions:
             embed = discord.Embed(
                 color=self.bot.error_color,
-                description=f"{mention} is not subscribed to this thread.",
+                description=f"🔕 {mention} is not subscribed to this thread!",
             )
         else:
             mentions.append(mention)
             await self.bot.config.update()
             embed = discord.Embed(
                 color=self.bot.main_color,
-                description=f"{mention} will now be notified of all messages received.",
+                description=f"🔔 {mention} will now be notified of all messages received!",
             )
         return await ctx.send(embed=embed)
 
@@ -575,19 +575,19 @@ class Modmail(commands.Cog):
         if mention not in mentions:
             embed = discord.Embed(
                 color=self.bot.error_color,
-                description=f"{mention} is not subscribed to this thread.",
+                description=f"🔕 {mention} is not subscribed to this thread!",
             )
         else:
             mentions.remove(mention)
             await self.bot.config.update()
             embed = discord.Embed(
                 color=self.bot.main_color,
-                description=f"{mention} is now unsubscribed from this thread.",
+                description=f"🔕 {mention} is now unsubscribed from this thread!",
             )
         return await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def nsfw(self, ctx):
         """Flags a Modmail thread as NSFW (not safe for work)."""
@@ -605,7 +605,7 @@ class Modmail(commands.Cog):
         await self.bot.add_reaction(ctx.message, sent_emoji)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def msglink(self, ctx, message_id: int):
         """Retrieves the link to a message in the current thread."""
@@ -620,7 +620,7 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.OWNER)
     @checks.thread_only()
     async def loglink(self, ctx):
         """Retrieves the link to the current thread's logs."""
@@ -671,7 +671,7 @@ class Modmail(commands.Cog):
         return embeds
 
     @commands.command(cooldown_after_parsing=True)
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     @commands.cooldown(1, 600, BucketType.channel)
     async def title(self, ctx, *, name: str):
@@ -682,7 +682,7 @@ class Modmail(commands.Cog):
         await self.bot.add_reaction(ctx.message, sent_emoji)
 
     @commands.group(invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def logs(self, ctx, *, user: User = None):
         """
         Get previous Modmail thread logs of a member.
@@ -720,7 +720,7 @@ class Modmail(commands.Cog):
         await session.run()
 
     @logs.command(name="closed-by", aliases=["closeby"])
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def logs_closed_by(self, ctx, *, user: User = None):
         """
         Get all logs closed by the specified user.
@@ -769,7 +769,7 @@ class Modmail(commands.Cog):
         await ctx.send(embed=embed)
 
     @logs.command(name="responded")
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def logs_responded(self, ctx, *, user: User = None):
         """
         Get all logs where the specified user has responded at least once.
@@ -794,7 +794,7 @@ class Modmail(commands.Cog):
         await session.run()
 
     @logs.command(name="search", aliases=["find"])
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def logs_search(self, ctx, limit: Optional[int] = None, *, query):
         """
         Retrieve all logs that contain messages with your query.
@@ -922,7 +922,7 @@ class Modmail(commands.Cog):
             await ctx.thread.reply(ctx.message, anonymous=True, plain=True)
 
     @commands.group(invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def note(self, ctx, *, msg: str = ""):
         """
