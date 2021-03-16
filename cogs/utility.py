@@ -1097,7 +1097,7 @@ class Utility(commands.Cog):
         return embed
 
     @alias.command(name="add")
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_add(self, ctx, name: str.lower, *, value):
         """
         Add an alias.
@@ -1146,7 +1146,7 @@ class Utility(commands.Cog):
         return await ctx.send(embed=embed)
 
     @alias.command(name="remove", aliases=["del", "delete"])
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_remove(self, ctx, *, name: str.lower):
         """Remove an alias."""
 
@@ -1165,7 +1165,7 @@ class Utility(commands.Cog):
         return await ctx.send(embed=embed)
 
     @alias.command(name="edit")
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_edit(self, ctx, name: str.lower, *, value):
         """
         Edit an alias.
