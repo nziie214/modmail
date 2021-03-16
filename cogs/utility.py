@@ -672,7 +672,7 @@ class Utility(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def mention(self, ctx, *mention: Union[discord.Role, discord.Member, str]):
         """
         Change what the bot mentions at the start of each thread.
@@ -719,7 +719,7 @@ class Utility(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command()
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    @checks.has_permissions(PermissionLevel.OWNER)
     async def prefix(self, ctx, *, prefix=None):
         """
         Change the prefix of the bot.
@@ -742,7 +742,7 @@ class Utility(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.group(aliases=["configuration"], invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.OWNER)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def config(self, ctx):
         """
         Modify changeable configuration variables for this bot.
@@ -1018,7 +1018,7 @@ class Utility(commands.Cog):
         await session.run()
 
     @alias.command(name="raw")
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_raw(self, ctx, *, name: str.lower):
         """
         View the raw content of an alias.
