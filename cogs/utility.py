@@ -477,7 +477,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     @utils.trigger_typing
     async def debug_clear(self, ctx):
-        """Clears the locally cached logs."""
+        """Clears the locally cache logs."""
 
         log_file_name = self.bot.token.split(".")[0]
 
@@ -490,7 +490,7 @@ class Utility(commands.Cog):
             pass
         await ctx.send(
             embed=discord.Embed(
-                color=self.bot.main_color, description="Cached logs are now cleared."
+                color=self.bot.main_color, description="Cache logs are now cleared! ✅"
             )
         )
 
@@ -559,7 +559,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def status(self, ctx, *, status_type: str.lower):
         """
-        Set a status for the bot.
+        🤖 Set a status for the bot.
 
         Possible status types:
             - `online`
@@ -663,7 +663,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     @utils.trigger_typing
     async def ping(self, ctx):
-        """Pong! Returns your websocket latency."""
+        """🏓 Pong! Returns your websocket latency."""
         embed = discord.Embed(
             title="🏓 Pong! Websocket Latency:",
             description=f"{self.bot.ws.latency * 1000:.4f} ms",
@@ -942,7 +942,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def alias(self, ctx, *, name: str.lower = None):
         """
-        Create shortcuts to bot commands.
+        ✂️ Create shortcuts to bot commands.
 
         When `{prefix}alias` is used by itself, this will retrieve
         a list of alias that are currently set. `{prefix}alias-name` will show what the
@@ -1021,7 +1021,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_raw(self, ctx, *, name: str.lower):
         """
-        View the raw content of an alias.
+        ✂️ View the raw content of an alias.
         """
         val = self.bot.aliases.get(name)
         if val is None:
@@ -1100,7 +1100,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_add(self, ctx, name: str.lower, *, value):
         """
-        Add an alias.
+        ✂️ Add an alias.
 
         Alias also supports multi-step aliases, to create a multi-step alias use quotes
         to wrap each step and separate each step with `&&`. For example:
@@ -1148,7 +1148,7 @@ class Utility(commands.Cog):
     @alias.command(name="remove", aliases=["del", "delete"])
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_remove(self, ctx, *, name: str.lower):
-        """Remove an alias."""
+        """✂️ Remove an alias."""
 
         if name in self.bot.aliases:
             self.bot.aliases.pop(name)
@@ -1168,7 +1168,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias_edit(self, ctx, name: str.lower, *, value):
         """
-        Edit an alias.
+        ✂️ Edit an alias.
         """
         if name not in self.bot.aliases:
             embed = utils.create_not_found_embed(name, self.bot.aliases.keys(), "Alias")
@@ -1181,7 +1181,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def permissions(self, ctx):
         """
-        Set the permissions for Modmail commands.
+        🕶 Set the permissions for Modmail commands.
 
         You may set permissions based on individual command names, or permission
         levels.
