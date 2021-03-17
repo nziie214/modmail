@@ -182,7 +182,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_raw(self, ctx, *, name: str.lower):
         """
-        View the raw content of a snippet.
+        ✂️ View the raw content of a snippet.
         """
         val = self.bot.snippets.get(name)
         if val is None:
@@ -201,7 +201,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_add(self, ctx, name: str.lower, *, value: commands.clean_content):
         """
-        Add a snippet.
+        ✂️ Add a snippet.
 
         Simply to add a snippet, do: ```
         {prefix}snippet add hey hello there :)
@@ -242,14 +242,14 @@ class Modmail(commands.Cog):
         embed = discord.Embed(
             title="Added snippet",
             color=self.bot.main_color,
-            description="Successfully created snippet.",
+            description="Successfully created snippet! ✅",
         )
         return await ctx.send(embed=embed)
 
     @snippet.command(name="remove", aliases=["del", "delete"])
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_remove(self, ctx, *, name: str.lower):
-        """Remove a snippet."""
+        """✂️ Remove a snippet."""
 
         if name in self.bot.snippets:
             embed = discord.Embed(
