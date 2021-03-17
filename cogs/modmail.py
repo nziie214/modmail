@@ -881,7 +881,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def areply(self, ctx, *, msg: str = ""):
         """
-        Reply to a thread anonymously.
+        📬 Reply to a thread anonymously.
 
         You can edit the anonymous user's name,
         avatar and tag using the config command.
@@ -898,7 +898,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def preply(self, ctx, *, msg: str = ""):
         """
-        Reply to a Modmail thread with a plain message.
+        📃 Reply to a Modmail thread with a plain message.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -912,7 +912,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def pareply(self, ctx, *, msg: str = ""):
         """
-        Reply to a Modmail thread with a plain message and anonymously.
+        📃 Reply to a Modmail thread with a plain message and anonymously.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -926,7 +926,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def note(self, ctx, *, msg: str = ""):
         """
-        Take a note about the current thread.
+        🗒 Take a note about the current thread.
 
         Useful for noting context.
         """
@@ -955,7 +955,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def edit(self, ctx, message_id: Optional[int] = None, *, message: str):
         """
-        Edit a message that was sent using the reply or anonreply command.
+        📝 Edit a message that was sent using the reply or anonreply command.
 
         If no `message_id` is provided,
         the last message sent by a staff will be edited.
@@ -995,7 +995,7 @@ class Modmail(commands.Cog):
         manual_trigger=True,
     ):
         """
-        Create a thread with a specified member.
+        📬 Create a thread with a specified member
 
         If `category` is specified, the thread
         will be created in that specified category.
@@ -1236,7 +1236,7 @@ class Modmail(commands.Cog):
         after: UserFriendlyTime = None,
     ):
         """
-        Block a user or role from using Modmail.
+        🔇 Block a user or role from using Modmail.
 
         You may choose to set a time as to when the user will automatically be unblocked.
 
@@ -1316,7 +1316,7 @@ class Modmail(commands.Cog):
     @trigger_typing
     async def unblock(self, ctx, *, user_or_role: Union[User, Role] = None):
         """
-        Unblock a user from using Modmail.
+        🔈 Unblock a user from using Modmail
 
         Leave `user` blank when this command is used within a
         thread channel to unblock the current recipient.
@@ -1380,8 +1380,8 @@ class Modmail(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command()
-    @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @commands.command(aliases=["d"])
+    @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def delete(self, ctx, message_id: int = None):
         """
