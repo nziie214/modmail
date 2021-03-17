@@ -129,7 +129,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet(self, ctx, *, name: str.lower = None):
         """
-        Create pre-defined messages for use in threads.
+        ✂️ Create pre-defined messages for use in threads.
 
         When `{prefix}snippet` is used by itself, this will retrieve
         a list of snippets that are currently set. `{prefix}snippet-name` will show what the
@@ -291,7 +291,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def move(self, ctx, *, arguments):
         """
-        Move a thread to another category.
+        📦 Move a thread to another category.
 
         `category` may be a category ID, mention, or name.
         `options` is a string which takes in arguments on how to perform the move. Ex: "silently"
@@ -373,7 +373,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def close(self, ctx, *, after: UserFriendlyTime = None):
         """
-        Close the current thread.
+        🔒 Close the current thread.
 
         Close after a period of time:
         - `{prefix}close in 5 hours`
@@ -438,7 +438,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        Notify a user or role when the next thread message received.
+        🔔 Notify a user or role when the next thread message received.
 
         Once a thread message is received, `user_or_role` will be pinged once.
 
@@ -608,7 +608,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def msglink(self, ctx, message_id: int):
-        """Retrieves the link to a message in the current thread."""
+        """💬 Retrieves the link to a message in the current thread."""
         try:
             message = await ctx.thread.recipient.fetch_message(message_id)
         except discord.NotFound:
@@ -675,7 +675,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     @commands.cooldown(1, 600, BucketType.channel)
     async def title(self, ctx, *, name: str):
-        """Sets title for a thread"""
+        """📝 Sets title for a thread"""
         await ctx.thread.set_title(name)
         sent_emoji, _ = await self.bot.retrieve_emoji()
         await ctx.message.pin()
@@ -823,7 +823,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def reply(self, ctx, *, msg: str = ""):
         """
-        Reply to a Modmail thread.
+        💬 Reply to a Modmail thread.
 
         Supports attachments and images as well as
         automatically embedding image URLs.
@@ -837,7 +837,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def freply(self, ctx, *, msg: str = ""):
         """
-        Reply to a Modmail thread with variables.
+        💬 Reply to a Modmail thread with variables.
 
         Works just like `{prefix}reply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
@@ -859,7 +859,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def fareply(self, ctx, *, msg: str = ""):
         """
-        Anonymously reply to a Modmail thread with variables.
+        💬 Anonymously reply to a Modmail thread with variables.
 
         Works just like `{prefix}areply`, however with the addition of three variables:
           - `{{channel}}` - the `discord.TextChannel` object
@@ -881,7 +881,7 @@ class Modmail(commands.Cog):
     @checks.thread_only()
     async def areply(self, ctx, *, msg: str = ""):
         """
-        📬 Reply to a thread anonymously.
+        💬 Reply to a thread anonymously.
 
         You can edit the anonymous user's name,
         avatar and tag using the config command.
