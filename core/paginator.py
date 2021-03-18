@@ -50,7 +50,7 @@ class PaginatorSession:
             "◀": self.previous_page,
             "▶": self.next_page,
             "⏭": self.last_page,
-            "🛑": self.close,
+            "🗑": self.close,
         }
 
     def add_page(self, item) -> None:
