@@ -473,7 +473,7 @@ class Thread:
         # Thread closed message
 
         embed = discord.Embed(
-            title=self.bot.config["thread_close_title"], color=self.bot.error_color,
+            title=self.bot.config["thread_close_title"], color=discord.Colour.random(),
         )
         if self.bot.config["show_timestamp"]:
             embed.timestamp = datetime.utcnow()
