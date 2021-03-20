@@ -1380,12 +1380,12 @@ class Modmail(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command(aliases=["d"])
+    @commands.command(aliases=["delete"])
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @checks.thread_only()
     async def delete(self, ctx, message_id: int = None):
         """
-        Delete a message that was sent using the reply command or a note.
+        ✏ Delete a message that was sent using the reply command or a note.
 
         Deletes the previous message, unless a message ID is provided,
         which in that case, deletes the message with that message ID.
@@ -1413,7 +1413,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     async def repair(self, ctx):
         """
-        Repair a thread broken by Discord.
+        🔧 Repair a thread broken by Discord.
         """
         sent_emoji, blocked_emoji = await self.bot.retrieve_emoji()
 
