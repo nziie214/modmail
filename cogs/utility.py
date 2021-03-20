@@ -675,7 +675,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def mention(self, ctx, *mention: Union[discord.Role, discord.Member, str]):
         """
-        Change what the bot mentions at the start of each thread.
+        🔔 Change what the bot mentions at the start of each thread.
 
         Type only `{prefix}mention` to retrieve your current "mention" message.
         `{prefix}mention disable` to disable mention.
@@ -722,7 +722,7 @@ class Utility(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     async def prefix(self, ctx, *, prefix=None):
         """
-        Change the prefix of the bot.
+        🤖 Change the prefix of the bot.
 
         Type only `{prefix}prefix` to retrieve your current bot prefix.
         """
@@ -939,7 +939,7 @@ class Utility(commands.Cog):
         await paginator.run()
 
     @commands.group(aliases=["aliases"], invoke_without_command=True)
-    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def alias(self, ctx, *, name: str.lower = None):
         """
         ✂️ Create shortcuts to bot commands.
