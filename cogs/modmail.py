@@ -267,7 +267,7 @@ class Modmail(commands.Cog):
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
     async def snippet_edit(self, ctx, name: str.lower, *, value):
         """
-        Edit a snippet.
+        ✂️ Edit a snippet.
 
         To edit a multi-word snippet name, use quotes: ```
         {prefix}snippet edit "two word" this is a new two word snippet.
@@ -361,9 +361,9 @@ class Modmail(commands.Cog):
         )
 
         if after.arg and not silent:
-            embed.add_field(name="Message", value=after.arg)
+            embed.add_field(name="💬 Message", value=after.arg)
 
-        embed.set_footer(text="Closing will be cancelled if a thread message is sent.")
+        embed.set_footer(text=f"{self.bot.prefix}close cancel - To cancel close")
         embed.timestamp = after.dt
 
         await ctx.send(embed=embed)
@@ -478,7 +478,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        Un-notify a user, role, or yourself from a thread.
+        🔕 Un-notify a user, role, or yourself from a thread.
 
         Leave `user_or_role` empty to un-notify yourself.
         `@here` and `@everyone` can be substituted with `here` and `everyone`.
@@ -515,7 +515,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        Notify a user, role, or yourself for every thread message received.
+        🔔 Notify a user, role, or yourself for every thread message received.
 
         You will be pinged for every thread message received until you unsubscribe.
 
@@ -555,7 +555,7 @@ class Modmail(commands.Cog):
         self, ctx, *, user_or_role: Union[discord.Role, User, str.lower, None] = None
     ):
         """
-        Unsubscribe a user, role, or yourself from a thread.
+        🔕 Unsubscribe a user, role, or yourself from a thread.
 
         Leave `user_or_role` empty to unsubscribe yourself.
         `@here` and `@everyone` can be substituted with `here` and `everyone`.
