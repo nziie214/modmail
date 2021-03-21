@@ -25,7 +25,7 @@ logger = getLogger(__name__)
 
 
 class Modmail(commands.Cog):
-    """Commands directly related to Modmail functionality."""
+    """📬 Commands directly related to Modmail functionality!"""
 
     def __init__(self, bot):
         self.bot = bot
