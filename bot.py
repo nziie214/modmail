@@ -1396,7 +1396,7 @@ class ModmailBot(commands.Bot):
                 embed = discord.Embed(
                     description="Successfully edited your message!", color=self.main_color
                 )
-                embed.set_footer(text="💬 Staff can see your new message")
+                embed.set_footer(text="💬 Staff can see your new message\nOctane Promotions")
                 await after.channel.send(embed=embed)
 
     async def on_error(self, event_method, *args, **kwargs):
